@@ -1,0 +1,17 @@
+import requests
+import threading
+
+def login_user():
+    data = {'username': 'user1', 'password': 'pass1'}
+    res = requests.post("http://your-app-url/login", data=data)
+    print(res.status_code)
+
+# Create 10 users logging in at once
+threads = []
+for _ in range(10):
+    t = threading.Thread(target=login_user)
+    threads.append(t)
+    t.start()
+
+for t in threads:
+    t.join()
